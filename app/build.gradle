@@ -4,16 +4,28 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
     id 'kotlin-parcelize'
+    id 'com.google.devtools.ksp' version '1.6.10-1.0.2'
+}
+
+kotlin {
+    sourceSets {
+        debug {
+            kotlin.srcDir("build/generated/ksp/debug/kotlin")
+        }
+        release {
+            kotlin.srcDir("build/generated/ksp/release/kotlin")
+        }
+    }
 }
 
 android {
     namespace 'com.loc.newsapp'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.loc.newsapp"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -51,10 +63,10 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.core:core-ktx:1.12.0'
     implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.0')
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.5.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.2'
+    implementation 'androidx.activity:activity-compose:1.7.2'
     implementation platform('androidx.compose:compose-bom:2022.10.00')
     implementation 'androidx.compose.ui:ui'
     implementation 'androidx.compose.ui:ui-graphics'
@@ -92,7 +104,7 @@ dependencies {
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
     //Compose Foundation
-    implementation "androidx.compose.foundation:foundation:1.4.3"
+    implementation "androidx.compose.foundation:foundation:1.5.1"
 
     //Accompanist
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.31.4-beta"
@@ -100,11 +112,17 @@ dependencies {
     //Paging 3
     def paging_version = "3.1.1"
     implementation "androidx.paging:paging-runtime:$paging_version"
-    implementation "androidx.paging:paging-compose:3.2.0-rc01"
+    implementation "androidx.paging:paging-compose:3.3.0-alpha02"
 
     //Room
     def room_version = "2.5.2"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:2.5.2"
+    implementation "androidx.navigation:navigation-compose:2.7.3"
+
+    // Compose Nav Destinations
+    implementation 'io.github.raamcosta.compose-destinations:core:1.1.2-beta'
+    ksp 'io.github.raamcosta.compose-destinations:ksp:1.1.2-beta'
+
 }
